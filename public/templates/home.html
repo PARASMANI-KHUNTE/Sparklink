@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Add your custom styles here */
+        body {
+            background-color: #f8f9fa; /* Light gray background */
+        }
+        .container {
+            margin-top: 50px; /* Adjust top margin */
+        }
+        h1 {
+            color: #007bff; /* Blue heading */
+            margin-bottom: 30px; /* Add some space below the heading */
+        }
+        #logoutBtn {
+            margin-top: 20px; /* Add space above the logout button */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/landingPage">Sparklink</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#postModal">Post</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <button id="logoutBtn" class="btn btn-outline-danger my-2 my-sm-0 ml-3" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome to the Home Page</h1>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text"><strong>Username:</strong> <span id="username"></span></p>
+                <p class="card-text"><strong>Full Name:</strong> <span id="fullname"></span></p>
+                <p class="card-text"><strong>Email:</strong> <span id="email"></span></p>
+                <p class="card-text"><strong>Phone:</strong> <span id="phoneNo"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Modal -->
+    <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="postModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postModalLabel">Create a Post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <!-- Post Title -->
+                        <div class="form-group">
+                            <label for="postTitle">Title</label>
+                            <input type="text" class="form-control" id="postTitle" placeholder="Enter post title" required>
+                        </div>
+                        <!-- Post Description -->
+                        <div class="form-group">
+                            <label for="postDesc">Description</label>
+                            <textarea class="form-control" id="postDesc" rows="3" placeholder="Enter post description"></textarea>
+                        </div>
+                        <!-- Upload File -->
+                        <div class="form-group">
+                            <label for="postFile">Upload</label>
+                            <input type="file" class="form-control-file" id="postFile">
+                        </div>
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional if you need JavaScript features) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JavaScript file -->
+    <script src="home.js"></script>
+    <script>
+        // Fetch user details when the page loads
+        window.onload = fetchUserDetails;
+
+        // Logout function
+        function logout() {
+            fetch("/logout", {
+                method: "POST",
+            }).then(() => {
+                // Redirect to the login page after logout
+                window.location.href = "/index.html";
+            }).catch((error) => {
+                console.error("Logout failed:", error);
+            });
+        }
+    </script>
+</body>
+</html>
